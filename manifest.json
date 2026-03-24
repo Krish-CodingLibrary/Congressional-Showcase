@@ -1,0 +1,16 @@
+{
+  "name": "Congressional App Challenge Showcase",
+  "short_name": "CAC Showcase",
+  "description": "A showcase of apps built by high schoolers for the Congressional App Challenge — #HouseOfCode",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000f63",
+  "theme_color": "#000f63",
+  "icons": [
+    {
+      "src": "https://assets.hackclub.com/icon-rounded.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

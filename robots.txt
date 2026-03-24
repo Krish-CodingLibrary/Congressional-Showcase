@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hackclub.github.io/Congressional-Showcase/sitemap.xml
