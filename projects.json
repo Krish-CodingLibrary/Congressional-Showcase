@@ -913,5 +913,20 @@
   "district": "OK-03",
   "state": "OK",
   "tags": ["health", "accessibility"]
+},
+{
+  "slug": "PA-16",
+  "name": "Giovanni Di Domenico",
+  "appName": "AgriTrader",
+  "description": "AgriTrader is an AI-powered agricultural marketplace and prediction platform designed to give local farmers the information they need to succeed in volatile crop markets.",
+  "thumbnail": "sites/PA-16/thumbnail.png",
+  "location": {
+    "lat": 40.440624,
+    "lng": -79.995888,
+    "label": "Pittsburgh, PA"
+  },
+  "district": "PA-16",
+  "state": "PA",
+  "tags": ["agriculture", "farming", "ai"]
 }
 ]
