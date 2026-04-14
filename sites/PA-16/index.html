@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriTrader | Giovanni Di Domenico</title>
+
+  <!-- Shared styles — gives you navigation arrows and CAC CSS variables -->
+  <link rel="stylesheet" href="../../assets/css/shared.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── AgriTrader Palette ── */
+    :root {
+      --green-deep:   #2d5016;
+      --green-mid:    #3a6b1e;
+      --green-light:  #d1fae5;
+      --amber:        #d97706;
+      --amber-light:  #fef3c7;
+      --success:      #22c55e;
+      --text-primary: #1f2937;
+      --text-mid:     #374151;
+      --text-muted:   #6b7280;
+      --bg:           #f8fafc;
+      --card:         #ffffff;
+      --border:       #e5e7eb;
+    }
+
+    /* ── Base ── */
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    /* ── Back link (mirrors shared.css .back-to-showcase) ── */
+    .back-to-showcase {
+      position: fixed;
+      top: 1rem;
+      left: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--green-deep);
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      text-decoration: none;
+      z-index: 100;
+      transition: background 0.18s;
+    }
+    .back-to-showcase:hover { background: var(--green-mid); }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4.5rem 2rem 3rem;
+    }
+
+    /* ── Hero Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 3.5rem 2rem 3rem;
+      background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 60%, #4a8a28 100%);
+      border-radius: 16px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grain texture overlay */
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.1rem;
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .header-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 400;
+      position: relative;
+    }
+
+    .header-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--amber);
+      margin: 1.1rem auto;
+      border-radius: 2px;
+    }
+
+    .header-tagline {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.9);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    /* ── App name chip in header ── */
+    .app-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--amber);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      margin-top: 1rem;
+    }
+
+    /* ── Cards ── */
+    section {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Section headings ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .section-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--green-deep);
+    }
+
+    p {
+      line-height: 1.75;
+      margin-bottom: 1rem;
+      color: var(--text-mid);
+      font-size: 0.97rem;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Tech stack pills ── */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1.5px solid;
+    }
+
+    .tech-pill.green  { background: var(--green-light); color: var(--green-deep); border-color: #a7f3d0; }
+    .tech-pill.amber  { background: var(--amber-light); color: #92400e; border-color: #fde68a; }
+    .tech-pill.blue   { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+    .tech-pill.gray   { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
+
+    /* ── Highlight stat row ── */
+    .stat-row {
+      display: flex;
+      gap: 1rem;
+      margin: 1.2rem 0 0;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: var(--green-light);
+      border: 1px solid #a7f3d0;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      text-align: center;
+    }
+
+    .stat-card .stat-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--green-deep);
+      line-height: 1.1;
+    }
+
+    .stat-card .stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── Video ── */
+    .video-wrapper {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      margin-top: 1.2rem;
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── Links ── */
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .link-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .link-btn.primary {
+      background: var(--green-deep);
+      color: #fff;
+    }
+    .link-btn.secondary {
+      background: var(--amber-light);
+      color: #92400e;
+      border: 1.5px solid #fde68a;
+    }
+
+    /* ── Award banner ── */
+    .award-banner {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: linear-gradient(90deg, var(--amber-light), #fff9eb);
+      border: 1.5px solid #fde68a;
+      border-radius: 10px;
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .award-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+    .award-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #92400e;
+    }
+    .award-text span {
+      font-size: 0.82rem;
+      color: #b45309;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--amber); text-decoration: none; font-weight: 500; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      .stat-row { flex-direction: column; }
+      section { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ── Hero Header ── -->
+    <header>
+      <div class="header-badge">Congressional App Challenge &bull; PA-16 Winner</div>
+      <h1>Giovanni Di Domenico</h1>
+      <div class="header-sub">Sewickley Academy</div>
+      <div class="header-divider"></div>
+      <p class="header-tagline">Building agricultural fintech that puts real-time market intelligence in every farmer's pocket.</p>
+      <div class="app-chip">&#127807; AgriTrader</div>
+    </header>
+
+    <!-- ── Award Banner ── -->
+    <div class="award-banner">
+      <div class="award-icon">&#127942;</div>
+      <div class="award-text">
+        <strong>2025 Congressional App Challenge — PA-16 Winner</strong>
+        <span>Presenting live at House of Code &bull; Washington, D.C. &bull; April 21–22, 2026</span>
+      </div>
+    </div>
+
+    <!-- ── About Me ── -->
+    <section>
+      <div class="section-header">
+        <div class="section-icon">&#128100;</div>
+        <h2>About Me</h2>
+      </div>
+      <p>
+        I'm a student at Sewickley Academy with a passion for software engineering, machine learning, and
+        finding real-world problems worth solving. I've been coding for several years and love the challenge
+        of building something that actually matters to people — not just something technically impressive, but
+        something genuinely useful.
+      </p>
+      <p>
+        AgriTrader started as a question: <em>why do local farmers still rely on phone calls and paper flyers
+        to learn what their crops are worth?</em> That question turned into a full-stack AI application that
+        won the Congressional App Challenge for Pennsylvania's 16th district, and it's the project I'm most
+        proud to have built.
+      </p>
+    </section>
+
+    <!-- ── About the App ── -->
+    <section>
+      <div class="section-header">
+        <div class="section-icon">&#127807;</div>
+        <h2>AgriTrader</h2>
+      </div>
+      <p>
+        <strong>AgriTrader</strong> is an AI-powered agricultural marketplace and price-forecasting platform
+        built for local farmers. The app gives farmers real-time crop price data, ML-based
+        sell-time recommendations, and a peer-to-peer marketplace to buy and sell crops directly — all from
+        their phone, in the field.
+      </p>
+      <p>
+        The core problem it solves: small-scale farmers often lack access to the same market intelligence
+        that large agricultural operations take for granted. AgriTrader levels that playing field by combining
+        live commodity data, trained machine learning models for corn, soybeans, and wheat, and a clean
+        mobile-first UI that feels approachable to anyone — no finance background required.
+      </p>
+      <p>
+        The ML models are trained on real Pennsylvania agricultural price data and served through a Python/Flask
+        backend. Predictions come back as confidence-rated buy/hold/sell signals, visualized with animated
+        charts on the forecast screen.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-val">3</div>
+          <div class="stat-label">Crops Modeled</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">ML</div>
+          <div class="stat-label">Price Forecasting</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">P2P</div>
+          <div class="stat-label">Marketplace</div>
+        </div>
+      </div>
+
+      <div class="tech-stack">
+        <span class="tech-pill blue">React Native</span>
+        <span class="tech-pill blue">Expo</span>
+        <span class="tech-pill blue">TypeScript</span>
+        <span class="tech-pill green">Python &amp; Flask</span>
+        <span class="tech-pill green">scikit-learn</span>
+        <span class="tech-pill green">pandas</span>
+        <span class="tech-pill amber">Firebase</span>
+        <span class="tech-pill gray">yfinance</span>
+        <span class="tech-pill gray">React Navigation</span>
+      </div>
+    </section>
+
+    <!-- ── Demo Video ── -->
+    <section>
+      <div class="section-header">
+        <div class="section-icon">&#127916;</div>
+        <h2>Demo</h2>
+      </div>
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/Lk2b9l9_0Ek"
+          title="AgriTrader Demo Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- ── Links ── -->
+    <section>
+      <div class="section-header">
+        <div class="section-icon">&#128279;</div>
+        <h2>Links</h2>
+      </div>
+      <div class="link-row">
+        <a class="link-btn primary" href="https://github.com/gmdidomenico77-dev/AgriTrader" target="_blank" rel="noopener">
+          &#128187; GitHub Repository
+        </a>
+        <a class="link-btn secondary" href="https://www.youtube.com/watch?v=Lk2b9l9_0Ek" target="_blank" rel="noopener">
+          &#9654; Watch on YouTube
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+
+  <!-- Navigation script — enables arrow key navigation. Do NOT remove this. -->
+  <script src="../../assets/js/nav.js" data-root="../../"></script>
+
+</body>
+</html>
